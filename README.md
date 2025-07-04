@@ -1,6 +1,6 @@
 # KPC Mouse Nanopore SV-to-Phenotype Pipeline
 
-A streamlined long-read pipeline for the KPC mouse PDAC model: somatic and mosaic SVs are called with Sniffles2, high- and moderate- impact events are annotated via Ensembl VEP, and reveal enrichments in nucleotide biosynthesis, mitochondrial respiration, PI3K-AKT-mTOR signaling and oxidative-stress pathways—mapping - a coherent SV-driven cancer phenotype.
+A streamlined long-read pipeline for the KPC mouse PDAC model: somatic and mosaic SVs are called with Sniffles2, high- and moderate- impact events are annotated via Ensembl VEP, and reveal enrichments in nucleotide biosynthesis, mitochondrial respiration, PI3K-AKT-mTOR signaling and oxidative-stress pathways, mapping - a coherent SV-driven cancer phenotype.
 
 This Nextflow, Singularity/Docker pipeline performs:
 
@@ -21,6 +21,7 @@ This Nextflow, Singularity/Docker pipeline performs:
 ├── results/                # Nanoplot results, Sniffles2 graphs; Annotation                                   #outputs; top enrichment results
 ├── Case_study_overview.pdf # Pdf overview of the study
 ├── Enrichment.RMD          # Pathway enrichment analyis in R
+├── Enrichment.html         # Knitted pathway enrichment analyis in R
 ├── qc-map.Dockerfile       # Dockerfile for QC and allignment
 ├── variant-call.Dockerfile # Dockerfile for variant calling and annotation
 └── README.md               # This file
@@ -80,13 +81,13 @@ nextflow run main.nf   -profile hpc   --fastqs   "./*.fastq"   --ref      "./GCF
 
 ## 🔍 Outputs
 
--   `results/nanoplot/` – QC plots & stats\
--   `results/bams/` – sorted & indexed BAMs\
--   `results/sv/mosaic/` – per-sample mosaic VCFs\
--   `results/sv/population/` – merged cohort VCF\
--   `results/sv/vep/mosaic/` – VEP annotation (VCF + TSV) for mosaic SVs\
--   `results/sv/vep/population/` – VEP annotation of merged cohort\
--   `results/svplots/` – SV plots
+-   `results/nanoplot/` - QC plots & stats\
+-   `results/bams/` - sorted & indexed BAMs\
+-   `results/sv/mosaic/` - per-sample mosaic VCFs\
+-   `results/sv/population/` - merged cohort VCF\
+-   `results/sv/vep/mosaic/` - VEP annotation (VCF + TSV) for mosaic SVs\
+-   `results/sv/vep/population/` - VEP annotation of merged cohort\
+-   `results/svplots/` - SV plots
 
 ------------------------------------------------------------------------
 

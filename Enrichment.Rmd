@@ -20,9 +20,9 @@ library(readr)
 
 ```{r define-paths}
 # Adjust these paths as needed
-mosaic1_tsv    <- "results/ERR4351539.mosaic.vep.tsv"
-mosaic2_tsv    <- "results/ERR4351540.mosaic.vep.tsv"
-population_tsv <- "results/multisample.vep.tsv"
+mosaic1_tsv    <- "results/Vep_results/ERR4351539.mosaic.vep.tsv"
+mosaic2_tsv    <- "results/Vep_results/ERR4351540.mosaic.vep.tsv"
+population_tsv <- "results/Vep_results/multisample.vep.tsv"
 ```
 
 ## 2) Read in VEP TSVs
