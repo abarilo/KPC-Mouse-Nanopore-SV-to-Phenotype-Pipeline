@@ -1,0 +1,11 @@
+"0","go_df    <- as.data.frame(ego)"
+"0","kegg_df  <- as.data.frame(ekegg)"
+"0","react_df <- as.data.frame(er)"
+"0",""
+"0","top10_go    <- go_df    %>% arrange(p.adjust) %>% slice_head(n=10)"
+"0","top10_kegg  <- kegg_df  %>% arrange(p.adjust) %>% slice_head(n=10)"
+"0","top10_react <- react_df %>% arrange(p.adjust) %>% slice_head(n=10)"
+"0",""
+"0","list(go=top10_go, kegg=top10_kegg, react=top10_react)"
+"1","$go
+"
