@@ -3,7 +3,7 @@
     "path": "~/Case study/README.md",
     "project_path": "README.md",
     "type": "markdown",
-    "hash": "4077922144",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1751591122625.0,
@@ -16,16 +16,16 @@
         "scrollLine": "28",
         "rmdVisualMode": "true",
         "rmdVisualCollapsedChunks": "",
-        "rmdVisualModeLocation": "3266:1985.3333740234375",
+        "rmdVisualModeLocation": "3360:1986",
         "rmdVisualWrapConfigured": "true",
         "docOutlineVisible": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1751610506,
+    "lastKnownWriteTime": 1751616826,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1751610506706,
+    "last_content_update": 1751616826072,
     "read_only": false,
     "read_only_alternatives": []
 }

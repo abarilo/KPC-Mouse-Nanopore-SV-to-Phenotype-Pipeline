@@ -99,10 +99,16 @@ Use Enrichment.RMD script for pathway enrichment analysis
 
 ## 🔍 Results
 
-Case_study_overview.pdf - study overview and brief
+Case_study_overview.pdf - study overview and brief results
 
-results results/top10_go.csv - Top GO enriched terms
+results/nanoplot - QC results
 
-results/top10_kegg.csv - Top KEGG enriched terms
+results/sniffles2_plots - Sniffles2 results plotted
 
-results/top10_react.csv - Top REACTOME enriched terms
+results/Vep_results - annotation tables
+
+results/Enrichment_results/top10_go.csv - Top GO enriched terms
+
+results/Enrichment_results/top10_kegg.csv - Top KEGG enriched terms
+
+results/Enrichment_results/top10_react.csv - Top REACTOME enriched terms
