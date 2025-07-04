@@ -4,7 +4,7 @@ A streamlined long-read pipeline for the KPC mouse PDAC model: somatic and mosai
 
 This Nextflow, Singularity/Docker pipeline performs:
 
-1.  **QC** of long-read FASTQ (NanoPlot, NanoStat)\
+1.  **QC** of long-read FASTQ (NanoPlot)\
 2.  **Alignment** to mouse GRCm39 (minimap2 → sorted/indexed BAM)\
 3.  **Structural variant calling** (Sniffles2 mosaic + cohort modes)\
 4.  **Annotation** of SVs (Ensembl VEP “tab” output)\
@@ -18,7 +18,7 @@ This Nextflow, Singularity/Docker pipeline performs:
 .
 ├── main.nf                 # Nextflow DSL2 pipeline
 ├── nextflow.config         # Config profiles + parameters
-├── results/                # Sniffles2 graphs; Annotation outputs; top enrichment results
+├── results/                # Nanoplot results, Sniffles2 graphs; Annotation                                   #outputs; top enrichment results
 ├── Case_study_overview.pdf # Pdf overview of the study
 ├── Enrichment.RMD          # Pathway enrichment analyis in R
 ├── qc-map.Dockerfile       # Dockerfile for QC and allignment
