@@ -1,8 +1,6 @@
 # KPC Mouse Nanopore SV-to-Phenotype Pipeline
 
-A streamlined long-read pipeline for the KPC mouse PDAC model: somatic and mosaic SVs are called with Sniffles2, 
-high- and moderate- impact events are annotated via Ensembl VEP, and reveal enrichments in nucleotide biosynthesis, 
-mitochondrial respiration, PI3K-AKT-mTOR signaling and oxidative-stress pathways—mapping - a coherent SV-driven cancer phenotype.
+A streamlined long-read pipeline for the KPC mouse PDAC model: somatic and mosaic SVs are called with Sniffles2, high- and moderate- impact events are annotated via Ensembl VEP, and reveal enrichments in nucleotide biosynthesis, mitochondrial respiration, PI3K-AKT-mTOR signaling and oxidative-stress pathways—mapping - a coherent SV-driven cancer phenotype.
 
 This Nextflow, Singularity/Docker pipeline performs:
 
@@ -10,8 +8,7 @@ This Nextflow, Singularity/Docker pipeline performs:
 2.  **Alignment** to mouse GRCm39 (minimap2 → sorted/indexed BAM)\
 3.  **Structural variant calling** (Sniffles2 mosaic + cohort modes)\
 4.  **Annotation** of SVs (Ensembl VEP “tab” output)\
-5.  **Linking SVs to tumor phenotypes** via gene lists and public
-    resources
+5.  **Linking SVs to tumor phenotypes** via gene lists and public resources
 
 ------------------------------------------------------------------------
 
@@ -35,9 +32,8 @@ This Nextflow, Singularity/Docker pipeline performs:
 
 1.  **Download data**
 
-    ```         
-    ```bash
-    ```
+    ``` bash
+
 
     \# Reference genome wget
     [https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/635/\\](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/635/\){.uri}
@@ -46,6 +42,7 @@ This Nextflow, Singularity/Docker pipeline performs:
     \# Nanopore reads prefetch ERR4351540 --max-size 100G prefetch
     ERR4351539 --max-size 100G fasterq-dump ERR4351540.sra fasterq-dump
     ERR4351539.sra \`\`\`
+    ```
 
 2.  **Pull Singularity images**
 
@@ -87,8 +84,7 @@ nextflow run main.nf   -profile hpc   --fastqs   "./*.fastq"   --ref      "./GCF
 -   `results/bams/` – sorted & indexed BAMs\
 -   `results/sv/mosaic/` – per-sample mosaic VCFs\
 -   `results/sv/population/` – merged cohort VCF\
--   `results/sv/vep/mosaic/` – VEP annotation (VCF + TSV) for mosaic
-    SVs\
+-   `results/sv/vep/mosaic/` – VEP annotation (VCF + TSV) for mosaic SVs\
 -   `results/sv/vep/population/` – VEP annotation of merged cohort\
 -   `results/svplots/` – SV plots
 
@@ -102,7 +98,10 @@ Use Enrichment.RMD script for pathway enrichment analysis
 
 ## 🔍 Results
 
-Case_study_overview.pdf - study overview and brief results
-results/top10_go.csv - Top GO enriched terms 
+Case_study_overview.pdf - study overview and brief
+
+results results/top10_go.csv - Top GO enriched terms
+
 results/top10_kegg.csv - Top KEGG enriched terms
+
 results/top10_react.csv - Top REACTOME enriched terms
