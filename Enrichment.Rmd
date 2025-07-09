@@ -164,9 +164,9 @@ go_df    <- as.data.frame(ego)
 kegg_df  <- as.data.frame(ekegg)
 react_df <- as.data.frame(er)
 
-top10_go    <- go_df    %>% arrange(p.adjust) %>% slice_head(n=10)
-top10_kegg  <- kegg_df  %>% arrange(p.adjust) %>% slice_head(n=10)
-top10_react <- react_df %>% arrange(p.adjust) %>% slice_head(n=10)
+top10_go    <- go_df    %>% arrange(p.adjust) %>% slice_head(n=20)
+top10_kegg  <- kegg_df  %>% arrange(p.adjust) %>% slice_head(n=20)
+top10_react <- react_df %>% arrange(p.adjust) %>% slice_head(n=20)
 
 list(go=top10_go, kegg=top10_kegg, react=top10_react)
 ```

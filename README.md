@@ -34,33 +34,88 @@ This Nextflow, Singularity/Docker pipeline performs:
 1.  **Download data**
 
     ``` bash
+    mkdir case
+    cd case
+    cd data
 
+    \# Reference genome 
+    wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/635/GCF_000001635.27_GRCm39/GCF_000001635.27_GRCm39_genomic.fna.gz
 
-    \# Reference genome wget
-    [https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/635/\\](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/001/635/\){.uri}
-    GCF_000001635.27_GRCm39/GCF_000001635.27_GRCm39_genomic.fna.gz
+    \# Nanopore reads 
+    #Install SRA toolkit if needed 
+    prefetch ERR4351540 --max-size 100G 
+    prefetch ERR4351539 --max-size 100G 
+    fasterq-dump ERR4351540.sra 
+    fasterq-dump ERR4351539.sra 
 
-    \# Nanopore reads prefetch ERR4351540 --max-size 100G prefetch
-    ERR4351539 --max-size 100G fasterq-dump ERR4351540.sra fasterq-dump
-    ERR4351539.sra \`\`\`
+    cd -
     ```
 
-2.  **Pull Singularity images**
+2.  **Download the Nextflow files**
 
     ``` bash
-    singularity pull qc-map.sif   docker://abarilo/qc-map:latest
-    singularity pull variant-call.sif docker://abarilo/variant-call:latest
-    singularity pull ensembl-vep_latest.sif docker://ensemblorg/ensembl-vep:release_114
+    wget https://raw.githubusercontent.com/abarilo/KPC-Mouse-Nanopore-SV-to-Phenotype-Pipeline/refs/heads/master/nextflow.config
+    wget https://raw.githubusercontent.com/abarilo/KPC-Mouse-Nanopore-SV-to-Phenotype-Pipeline/refs/heads/master/main.nf
     ```
 
-3.  **Install VEP cache**
+3.  **Pull Singularity/Docker images**
+
+  Singularity:
+
+    ``` bash
+    #Singularity
+    singularity pull qc-map.sif   docker://abarilo/qc-map:latest
+    singularity pull variant-call.sif docker://abarilo/variant-call:latest
+    singularity pull ensembl-vep_latest.sif docker://ensemblorg/ensembl-vep:latest
+    
+    ```
+  Docker:
+  
+    ``` bash
+    docker pull abarilo/qc-map:latest
+    docker pull abarilo/variant-call:latest
+    docker pull ensemblorg/ensembl-vep:latest
+
+    ```
+4.  **Install VEP cache**
+
+  Singularity:
 
     ``` bash
     export VEP_CACHE_DIR=$PWD/vep_cache
     mkdir -p $VEP_CACHE_DIR
-    singularity exec      --bind $VEP_CACHE_DIR:/root/.vep      ensembl-vep_latest.sif      perl /opt/vep/src/ensembl-vep/INSTALL.pl        --AUTO cf        --SPECIES mus_musculus        --ASSEMBLY GRCm39        --NO_HTSLIB        --NO_TEST
-    ```
+    docker run --rm \
+        -u root \
+        -v $VEP_CACHE_DIR:/root/.vep \
+        --entrypoint perl \
+        ensemblorg/ensembl-vep:latest \
+        /opt/vep/src/ensembl-vep/INSTALL.pl \
+        --AUTO cf \
+        --SPECIES mus_musculus \
+        --ASSEMBLY GRCm39 \
+        --NO_HTSLIB \
+        --NO_TEST
 
+    ```
+  Docker:
+
+    ``` bash
+    # 1. Prepare a host cache directory
+    export VEP_CACHE_DIR=$PWD/vep_cache
+    mkdir -p $VEP_CACHE_DIR
+    docker run --rm \
+    -u root \
+    -v $VEP_CACHE_DIR:/root/.vep \
+    --entrypoint perl \
+    ensemblorg/ensembl-vep:latest \
+    /opt/vep/src/ensembl-vep/INSTALL.pl \
+    --AUTO cf \
+    --SPECIES mus_musculus \
+    --ASSEMBLY GRCm39 \
+    --NO_HTSLIB \
+    --NO_TEST
+
+    ```
 ------------------------------------------------------------------------
 
 ## ⚙️ Running the pipeline
@@ -68,13 +123,33 @@ This Nextflow, Singularity/Docker pipeline performs:
 **Local (standard)**
 
 ``` bash
-nextflow run main.nf   -profile standard   --fastqs   "./*.fastq"   --ref      "./GCF_000001635.27_GRCm39_genomic.fna.gz"   --outdir   "./results"   --qc_image    qc-map.sif   --sv_image    variant-call.sif   --vepImage    ensembl-vep_latest.sif
+nextflow run main.nf \
+  --profile standard \
+  --fastqs       'pth to *.fastq files' \
+  --ref          'path to reference' \
+  --outdir       ./results \
+  --qc_image     abarilo/qc-map:latest \
+  --sv_image     abarilo/variant-call:latest \
+  --vepImage     ensemblorg/ensembl-vep:latest \
+  --genomeBuild  GRCm39 \
+  --vepSpecies   mus_musculus \
+  --vepCache     'path to .vep' \
 ```
 
 **HPC (SLURM)**
 
 ``` bash
-nextflow run main.nf   -profile hpc   --fastqs   "./*.fastq"   --ref      "./GCF_000001635.27_GRCm39_genomic.fna.gz"   --outdir   "./results"   --qc_image    qc-map.sif   --sv_image    variant-call.sif   --vepImage    ensembl-vep_latest.sif
+nextflow run main.nf \
+  --profile hpc \
+  --fastqs       'pth to *.fastq files' \
+  --ref          'path to reference' \
+  --outdir       ./results \
+  --qc_image     path to qc-map.sif   \
+  --sv_image     path to variant-call.sif \
+  --vepImage     path to ensembl-vep_latest.sif \
+  --genomeBuild  GRCm39 \
+  --vepSpecies   mus_musculus \
+  --vepCache     'path to .vep' \
 ```
 
 ------------------------------------------------------------------------
@@ -97,7 +172,7 @@ Use Enrichment.RMD script for pathway enrichment analysis
 
 ------------------------------------------------------------------------
 
-## 🔍 Results
+## 🔍 Results folder overview
 
 Case_study_overview.pdf - study overview and brief results
 
@@ -112,3 +187,9 @@ results/Enrichment_results/top10_go.csv - Top GO enriched terms
 results/Enrichment_results/top10_kegg.csv - Top KEGG enriched terms
 
 results/Enrichment_results/top10_react.csv - Top REACTOME enriched terms
+
+results/Enrichment_results/go_df.csv - all GO enriched terms
+
+results/Enrichment_results/kegg_df.csv - all KEGG enriched terms
+
+results/Enrichment_results/react_df.csv - all REACTOME enriched terms

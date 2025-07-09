@@ -1,4 +1,4 @@
 "0","# Adjust these paths as needed"
-"0","mosaic1_tsv    <- ""results/ERR4351539.mosaic.vep.tsv"""
-"0","mosaic2_tsv    <- ""results/ERR4351540.mosaic.vep.tsv"""
-"0","population_tsv <- ""results/multisample.vep.tsv"""
+"0","mosaic1_tsv    <- ""results/Vep_results/ERR4351539.mosaic.vep.tsv"""
+"0","mosaic2_tsv    <- ""results/Vep_results/ERR4351540.mosaic.vep.tsv"""
+"0","population_tsv <- ""results/Vep_results/multisample.vep.tsv"""
