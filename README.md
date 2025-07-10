@@ -82,25 +82,23 @@ This Nextflow, Singularity/Docker pipeline performs:
   Singularity:
 
     ``` bash
-    export VEP_CACHE_DIR=$PWD/vep_cache
+    export VEP_CACHE_DIR=vep_cache
     mkdir -p $VEP_CACHE_DIR
-    docker run --rm \
-        -u root \
-        -v $VEP_CACHE_DIR:/root/.vep \
-        --entrypoint perl \
-        ensemblorg/ensembl-vep:latest \
-        /opt/vep/src/ensembl-vep/INSTALL.pl \
-        --AUTO cf \
-        --SPECIES mus_musculus \
-        --ASSEMBLY GRCm39 \
-        --NO_HTSLIB \
-        --NO_TEST
+    singularity exec \
+    --bind $VEP\_CACHE\_DIR:/root/.vep \\
+    ensembl-vep\_latest.sif \\
+    perl /opt/vep/src/ensembl-vep/INSTALL.pl \\
+     --AUTO cf \\
+     --SPECIES mus\_musculus \\
+     --ASSEMBLY GRCm39 \\
+     --NO\_HTSLIB \\
+     --NO\_TEST
 
     ```
   Docker:
 
     ``` bash
-    # 1. Prepare a host cache directory
+ 
     export VEP_CACHE_DIR=$PWD/vep_cache
     mkdir -p $VEP_CACHE_DIR
     docker run --rm \
